@@ -76,7 +76,7 @@ The GET does not utilize a separate class. Rather, it is in the `SpeechRecognize
 
 The GET takes in the UUID of an audio file and loops through the `assets` directory to find any folders that match it. 
 
-If found, it scans the UUID directory to see if any transcripts have been generated. If a transcript is detected, a JSON is returned containing the full text is displayed line by line. 
+If found, it scans the UUID directory to see if any transcripts have been generated. If a transcript is detected, a JSON is returned containing the full text displayed line by line. 
 
 
 ## Support and Contributing
