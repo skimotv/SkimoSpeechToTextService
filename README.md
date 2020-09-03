@@ -6,7 +6,7 @@ This is a Spring Boot REST microservice that uses the Speech-to-Text engine, [De
 ## Intsalling DeepSpeech
 **Be sure to have Python 3.6.5+ installed before proceeding**
 
-This service uses **DeepSpeech Version 0.6** (support for current releases in development)
+This service uses **DeepSpeech Version 0.6** 
 
 Start by creating a virtual environment to install the necessary pakcages 
 
