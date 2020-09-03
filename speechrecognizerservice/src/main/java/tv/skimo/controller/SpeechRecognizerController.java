@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/* The SpeechRecognizerController class contains the GET and POST method used to convert an audio file to text
- * @author Advait Sankaramanchi 
- */
 @RestController
 public class SpeechRecognizerController {
   
@@ -33,12 +30,10 @@ public class SpeechRecognizerController {
 	    return "Hello";
   } 	
   
-  /* POST method that utilizes the URLProvisioner class
-   * @param reqPar - a JSON request containing the URL location of the .wav file
-   * @return a JSONObject to display the UUID for the user
-   */
   @PostMapping("/speechtotext")
   JSONObject getMessage(@RequestParam Map<String,String> reqPar) throws IOException {
+	  // POST method that utilizes the URLProvisioner class
+	  
 	  String url = reqPar.get("URL"); 
 	  UrlProvisioner myAudio = new UrlProvisioner(url, 
 			  ASSETS, "input-audio.wav");
@@ -54,14 +49,12 @@ public class SpeechRecognizerController {
 	  return obj; 
   }
   
-  /* GET method that iterates through the assets directory and finds the transcript 
-   * for a desired .wav file
-   * @Param id - the UUID of the specified .wav file
-   * @return a JSONObject with the contents of the transcript listed line by line
-   */
   private static final Logger log = LoggerFactory.getLogger(SpeechRecognizerController.class);
   @GetMapping("/speechtotext/{id}")
   JSONObject getTranscript(@PathVariable Long id) {
+	  /* GET method that iterates through the assets directory and finds the transcript 
+	     for a desired .wav file */
+	  
 	  	ArrayList<String> linesList = new ArrayList<String>(); 
 	  	JSONObject linesOfTranscript = new JSONObject();
 		File[] assetFiles = new File(ASSETS).listFiles();

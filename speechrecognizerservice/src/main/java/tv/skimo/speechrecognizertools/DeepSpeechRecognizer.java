@@ -9,11 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-/* The DeepSpeechRecognizer class iterates through the directory containing sample .wav speech 
- * files. A transcript of the .wav file is generated if it is not already present  
- * @author Advait Sankaramanchi 
- */
-
 @Component 
 public class DeepSpeechRecognizer {
 	
@@ -27,12 +22,12 @@ public class DeepSpeechRecognizer {
 	@Value("${venvPath}")
 	private String VENV_PATH; 
 	
-	/* Iterates through the assets directory and calls the runDeepSpeech method
-	 * Note: assets directory located in public/resources
-	 */
 	private static final Logger log = LoggerFactory.getLogger(DeepSpeechRecognizer.class);
 	@Scheduled(fixedDelay = 60000) //runs once a minute
 	public void executeSpeechToText() throws IOException {
+		// Iterates through the assets directory and calls the runDeepSpeech method
+		// Note: assets directory located in public/resources 
+		
 		log.info("executeSpeechToText invoked");
 		File[] assetURLFiles = new File(ASSETS).listFiles();
 		for (File uuidFile : assetURLFiles) {
@@ -47,12 +42,10 @@ public class DeepSpeechRecognizer {
 		} 
 	}
 	
-	/* Executes the shell script containing the DeepSpeech speech to text command using
-	 * the ProcessBuilder class
-	 * @param audioFileLoc - the absolute path of the audio file
-	 * @param uuidDirLoc - the directory in assets where the transcript should be created 
-	 */
 	private void runDeepSpeech(String audioFileLoc, String uuidDirLoc) {
+		/* Executes the shell script containing the DeepSpeech speech to text command using 
+		   the ProcessBuilder class */
+		
 		String whereToPutTranscript = uuidDirLoc + "/" + "sub.txt"; 
 		ArrayList<String> pbList = new ArrayList<String>();
 		
