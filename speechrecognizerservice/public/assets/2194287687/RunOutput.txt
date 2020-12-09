@@ -1,0 +1,11 @@
+TensorFlow: v2.3.0-6-g23ad988fcd
+DeepSpeech: v0.9.2-0-gb2920c75
+2020-12-09 16:20:27.324562: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Loading model from file /usr/local/bin/deepSpeech_models_scorer/deepspeech-0.9.2-models.pbmm
+Loaded model in 0.013s.
+Loading scorer from files /usr/local/bin/deepSpeech_models_scorer/deepspeech-0.9.2-models.scorer
+Loaded scorer in 0.000267s.
+Warning: original sample rate (11025) is different than 16000hz. Resampling might produce erratic speech recognition.
+Running inference.
+Inference took 3.178s for 8.028s audio file.

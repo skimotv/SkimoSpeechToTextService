@@ -23,7 +23,7 @@ public class DeepSpeechRecognizer {
 	private String VENV_PATH; 
 	
 	private static final Logger log = LoggerFactory.getLogger(DeepSpeechRecognizer.class);
-	@Scheduled(fixedDelay = 60000) //runs once a minute
+	@Scheduled(fixedDelay = 20000) //runs once a minute
 	public void executeSpeechToText() throws IOException {
 		// Iterates through the assets directory and calls the runDeepSpeech method
 		// Note: assets directory located in public/resources 
@@ -46,7 +46,7 @@ public class DeepSpeechRecognizer {
 		/* Executes the shell script containing the DeepSpeech speech to text command using 
 		   the ProcessBuilder class */
 		
-		String whereToPutTranscript = uuidDirLoc + "/" + "sub.txt"; 
+		String whereToPutTranscript = uuidDirLoc + "/" + "out.json"; 
 		ArrayList<String> pbList = new ArrayList<String>();
 		
 		//Shell script containing DeepSpeech command

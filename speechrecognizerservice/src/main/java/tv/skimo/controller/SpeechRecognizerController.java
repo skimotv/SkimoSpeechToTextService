@@ -1,12 +1,15 @@
 package tv.skimo.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tv.skimo.speechrecognizertools.*;
@@ -51,39 +54,28 @@ public class SpeechRecognizerController {
   
   private static final Logger log = LoggerFactory.getLogger(SpeechRecognizerController.class);
   @GetMapping("/speechtotext/{id}")
-  JSONObject getTranscript(@PathVariable Long id) {
+  JSONObject getTranscript(@PathVariable Long id) throws FileNotFoundException, IOException, ParseException {
 	  /* GET method that iterates through the assets directory and finds the transcript 
 	     for a desired .wav file */
 	  
 	  	ArrayList<String> linesList = new ArrayList<String>(); 
-	  	JSONObject linesOfTranscript = new JSONObject();
+	  	JSONObject transcript = new JSONObject();
 		File[] assetFiles = new File(ASSETS).listFiles();
 		for (File uuidFile : assetFiles) {
 			if(uuidFile.getName().equals(id.toString())) {
 				File[] filesInUUID = new File(uuidFile.getAbsolutePath()).listFiles();
 				for(int k = 0; k < filesInUUID.length; k++) {
-					if(filesInUUID[k].getName().equals("sub.txt")) {
-						BufferedReader reader;
-						try {
-							reader = new BufferedReader(new FileReader(filesInUUID[k].getAbsolutePath()));
-							String line = reader.readLine();
-							while (line != null) {
-								linesList.add(line); 
-								// read next line
-								line = reader.readLine();
-							}
-							reader.close();
-						} catch (IOException e) {
-							log.info("Unable to read lines from sub.txt");
-						}
-						for(int j = 0; j < linesList.size(); j++) {
-							linesOfTranscript.put("Line " + j+1, linesList.get(j)); 
-						}
+					if(filesInUUID[k].getName().equals("out.json")) {
+//						GetJSON get = new GetJSON(filesInUUID[k]); trying to isolate 1 of the 3 transcript predictions
+//						transcript = get.summarizedOutput(); 
+						Object obj = new JSONParser().parse(new FileReader(filesInUUID[k].getAbsolutePath()));
+						JSONObject tj = (JSONObject) obj;
+						transcript = tj; 
+						} 
 					}
 				}
-			}
-		} 
-		return linesOfTranscript; 
+		}
+		return transcript; 
   	}
 }
 
