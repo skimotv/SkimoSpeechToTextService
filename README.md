@@ -8,9 +8,7 @@ This is a Spring Boot REST microservice that uses the Speech-to-Text engine, [De
 
 This service uses **DeepSpeech Version 0.9.2** 
 
-You can find instructions for downloading and installing DeepSpeech [here](https://deepspeech.readthedocs.io/en/v0.9.2/). 
-
-**After installing, move the** `deepspeech-0.9.2-models.pbmm` **and**  `deepspeech-0.9.2-models.scorer` **files along with the shell script** `deepSpeech09Script.sh` **and your virtual environment into** `/usr/local/bin` **. This is the default path used to initialy run the application, however it can be changed as explained in the next section.**  
+You can find instructions for downloading and installing DeepSpeech [here](https://deepspeech.readthedocs.io/en/v0.9.2/).  
 
 ## Using the Spring Boot Application 
 
@@ -18,7 +16,7 @@ This microservice utilizes two operations, a POST and GET, in order to download 
 
 The POST, GET, and Controller are located in the `src/main/java` directory.
 
-The path to the DeepSpeech models, the virutal environment, and the `DeepSpeechScript.sh` shell script can be changed in `application.properties` located in the `src/main/resources` folder 
+The path to the location of the DeepSpeech models, the virutal environment, and the `DeepSpeechScript.sh` shell script can be changed in `application.properties` located in the `src/main/resources` folder.  
 
 ### POST
 In the `SpeechRegonizer` class, a JSON request is taken in as an input containing the URL to a sample speech file. 
