@@ -1,48 +1,16 @@
 # Skimo Speech-To-Text Service
 
 ## Overview
-This is a Spring Boot REST microservice that uses the Speech-to-Text engine, [DeepSpeech](https://github.com/mozilla/DeepSpeech), to take a speech sample (in WAV format) as an input and output a full transcript.
+This is a Spring Boot REST microservice that uses the Speech-to-Text engine, [DeepSpeech](https://github.com/mozilla/DeepSpeech), to take a speech sample (in WAV format) as an input and output a full transcript with timecodes.
 
 ## Intsalling DeepSpeech
-**Be sure to have Python 3.6.5+ installed before proceeding**
+**Be sure to have Python 3.7+ installed before proceeding**
 
-This service uses **DeepSpeech Version 0.6** 
+This service uses **DeepSpeech Version 0.9.2** 
 
-Start by creating a virtual environment to install the necessary pakcages 
+You can find instructions for downloading and installing DeepSpeech [here](https://deepspeech.readthedocs.io/en/v0.9.2/). 
 
-`$ python3 -m venv ./some/pyenv/dir/path/ds06`
-
-Switch over to the directory containing the virutal environment, activate it, and install DeepSpeech. 
-
-`$ source ./some/pyenv/dir/path/ds06/bin/activate`
-
-`$ pip3 install deepspeech==0.6.0`
-
-Create a separate directory to hold DeepSpeech and unzip the models (this may take some time)
-
-`$ mkdir -p ./some/workspace/path/ds06`
-
-`$ cd ./some/workspace/path/ds06`
-
-`$ curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.6.0/deepspeech-0.6.0-models.tar.gz`
-
-`$ tar -xvzf deepspeech-0.6.0-models.tar.gz`
-
-Download and unzip a few sample audio files to test
-
-`$ curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.6.0/audio-0.6.0.tar.gz`
-
-`$ tar -xvzf audio-0.6.0.tar.gz`
-
-Once this finishes, test DeepSpeech
-
-`$ ls -l ./audio/`
-
-`$ deepspeech --model deepspeech-0.6.0-models/output_graph.pb --lm deepspeech-0.6.0-models/lm.binary --trie ./deepspeech-0.6.0-models/trie --audio ./audio/2830-3980-0043.wav`
-
-After the inference finishes running, the output should show **"experience proof less"**
-
-**Before continuing, move the** `deepspeech-0.6.0-models` **directory along with the shell script** `DeepSpeechScript.sh` **and your virtual environment into** `/usr/local/bin` **. This is the default path used to initialy run the application, however it can be changed as explained in the next section.**  
+**After installing, move the** `deepspeech-0.9.2-models.pbmm` **and**  `deepspeech-0.9.2-models.scorer` **files along with the shell script** `deepSpeech09Script.sh` **and your virtual environment into** `/usr/local/bin` **. This is the default path used to initialy run the application, however it can be changed as explained in the next section.**  
 
 ## Using the Spring Boot Application 
 
@@ -68,7 +36,7 @@ In the `SpeechRecognizer` class the POST then returns a JSON containing the UUID
 
 The class `DeepSpeechRecognizer` contains a background process that runs every 60 seconds to scan through `assets` and detect any WAV files which have not been transcribed yet. 
 
-Once one without a transcription is found, the process runs the shell script `DeepSpeechScript.sh` using the `Process Builder` class in the Java API to generate a .txt file containing the output.  
+Once one without a transcription is found, the process runs the shell script using the `Process Builder` class in the Java API to generate a .json file containing the output.  
 
 ### GET
 
@@ -76,7 +44,7 @@ The GET does not utilize a separate class. Rather, it is in the `SpeechRecognize
 
 The GET takes in the UUID of an audio file and loops through the `assets` directory to find any folders that match it. 
 
-If found, it scans the UUID directory to see if any transcripts have been generated. If a transcript is detected, a JSON is returned containing the full text displayed line by line. 
+If found, it scans the UUID directory to see if any transcripts have been generated. If a transcript is detected, it is returned.  
 
 
 ## Support and Contributing
