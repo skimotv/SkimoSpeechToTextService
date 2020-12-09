@@ -12,7 +12,7 @@ You can find instructions for downloading and installing DeepSpeech [here](https
 
 ## Using the Spring Boot Application 
 
-This microservice utilizes two operations, a POST and GET, in order to download an audio file from a URL link and output the transcript line by line through a JSON.
+This microservice utilizes two operations, a POST and GET, in order to download an audio file from a URL link and output the transcript word by word with timecodes.
 
 The POST, GET, and Controller are located in the `src/main/java` directory.
 
