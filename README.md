@@ -34,7 +34,7 @@ In the `SpeechRecognizer` class the POST then returns a JSON containing the UUID
 
 The class `DeepSpeechRecognizer` contains a background process that runs every 60 seconds to scan through `assets` and detect any WAV files which have not been transcribed yet. 
 
-Once one without a transcription is found, the process runs the shell script using the `Process Builder` class in the Java API to generate a .json file containing the output.  
+Once one without a transcription is found, the process runs the shell script using the `Process Builder` class in the Java API to generate a JSON file containing the output.  
 
 ### GET
 
